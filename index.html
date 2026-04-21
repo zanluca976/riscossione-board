@@ -116,6 +116,10 @@
   .move-option:hover { border-color: var(--accent); color: var(--text); background: rgba(59,130,246,0.05); }
   .move-option .dest-name { font-weight: 600; color: var(--text); display: block; margin-bottom: 2px; }
   .move-option .dest-hint { font-size: 10px; color: var(--text-muted); }
+  .move-date-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 14px; }
+  .move-date-box label { display: block; font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .move-date-box input { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 9px 12px; color: var(--text); font-family: var(--mono); font-size: 13px; outline: none; transition: border-color 0.15s; }
+  .move-date-box input:focus { border-color: var(--accent); }
 
   /* SETTINGS */
   .config-section { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
@@ -225,7 +229,7 @@
       <select id="inp-entrata"><option value="">— Seleziona entrata —</option></select>
     </div>
     <div class="field">
-      <label>Data notifica accertamento</label>
+      <label>Data invio accertamento</label>
       <input type="date" id="inp-date">
     </div>
     <div class="field">
@@ -244,6 +248,10 @@
   <div class="modal">
     <div class="modal-title" id="moveModalTitle">Sposta postalizzazione</div>
     <div class="modal-subtitle">Seleziona la colonna di destinazione</div>
+    <div class="move-date-box">
+      <label>Data invio atto nella nuova fase</label>
+      <input type="date" id="move-date">
+    </div>
     <div class="move-options" id="moveOptions"></div>
     <div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal('moveModal')">Annulla</button></div>
   </div>
@@ -410,14 +418,13 @@ function renderCards() {
       const status   = getStatus(card.col, card.date);
       const hasRem   = col === 'ae' || col === 'sc';
       const ref      = getReferente(card.entrata);
-      const ejsReady = cfg.emailjs.pubkey && cfg.emailjs.serviceId && cfg.emailjs.templateId;
-      const hasMail  = ref && ejsReady;
+      const hasMail  = !!ref;
 
       return `<div class="card ${status}">
         <div class="card-status-bar"></div>
         <div class="card-name">${card.name}</div>
         <div class="card-meta">
-          <div class="card-meta-row"><span class="label">Notifica:</span><span>${fmtDate(card.date)}</span></div>
+          <div class="card-meta-row"><span class="label">Invio:</span><span>${fmtDate(card.date)}</span></div>
           ${card.entrata ? `<div class="card-meta-row"><span class="label">Entrata:</span><span>${card.entrata}${ref ? ` · ${ref.nome}` : ''}</span></div>` : ''}
           ${card.note    ? `<div class="card-meta-row"><span class="label">Note:</span><span>${card.note}</span></div>` : ''}
           <div style="margin-top:5px">${badgeHtml(card.col, card.date)}</div>
@@ -456,6 +463,12 @@ function openEmailModal(id) {
   const card = cards.find(x => x.id === id);
   const ref  = getReferente(card.entrata);
   if (!ref) { showToast('⚠ Nessun referente configurato per questa entrata'); return; }
+
+  const ejsReady = cfg.emailjs.pubkey && cfg.emailjs.serviceId && cfg.emailjs.templateId;
+  if (!ejsReady) {
+    showToast('⚠ Configura EmailJS nelle Impostazioni prima di inviare', 'error');
+    return;
+  }
 
   let scadenza = '—';
   if (card.col === 'ae') scadenza = fmtDate(addDays(card.date, 120));
@@ -529,6 +542,7 @@ function addCard() {
 function openMoveModal(id) {
   const card = cards.find(c => c.id === id);
   document.getElementById('moveModalTitle').textContent = `Sposta: ${card.name}`;
+  document.getElementById('move-date').value = today();
   document.getElementById('moveOptions').innerHTML = COLS[card.col].next.map(col => `
     <button class="move-option" onclick="moveCard('${id}','${col}')">
       <span class="dest-name">${COLS[col].label}</span>
@@ -539,7 +553,8 @@ function openMoveModal(id) {
 
 function moveCard(id, dest) {
   const card = cards.find(c => c.id === id);
-  if (card) { card.col = dest; card.colDate = today(); }
+  const moveDate = document.getElementById('move-date').value || today();
+  if (card) { card.col = dest; card.colDate = moveDate; card.date = moveDate; }
   save(); renderCards(); closeModal('moveModal');
   showToast(`✓ Spostato in ${COLS[dest].label}`);
 }
