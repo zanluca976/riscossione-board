@@ -7,25 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
-  :root {
-    --bg:#0f1117;--surface:#161b27;--surface2:#1e2535;--border:#2a3347;
-    --text:#e2e8f0;--text-muted:#64748b;--text-dim:#94a3b8;
-    --accent:#3b82f6;--green:#22c55e;--green-bg:rgba(34,197,94,0.08);
-    --yellow:#eab308;--yellow-bg:rgba(234,179,8,0.08);
-    --red:#ef4444;--red-bg:rgba(239,68,68,0.08);
-    --orange:#f97316;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;
-  }
+  :root{--bg:#0f1117;--surface:#161b27;--surface2:#1e2535;--border:#2a3347;--text:#e2e8f0;--text-muted:#64748b;--text-dim:#94a3b8;--accent:#3b82f6;--green:#22c55e;--green-bg:rgba(34,197,94,0.08);--yellow:#eab308;--yellow-bg:rgba(234,179,8,0.08);--red:#ef4444;--red-bg:rgba(239,68,68,0.08);--orange:#f97316;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
-
-  /* LOADER */
   #loader{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;gap:16px}
   #loader.hidden{display:none}
   .loader-icon{font-size:36px;animation:spin 1.5s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   .loader-text{font-family:var(--mono);font-size:12px;color:var(--text-muted);letter-spacing:0.1em}
-
-  /* LOGIN */
   #loginScreen{position:fixed;inset:0;background:var(--bg);display:none;align-items:center;justify-content:center;z-index:999}
   #loginScreen.show{display:flex}
   .login-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:40px 36px;width:360px;text-align:center}
@@ -35,8 +24,6 @@
   .login-error{font-family:var(--mono);font-size:11px;color:var(--red);margin-bottom:12px;min-height:16px}
   .btn-login{width:100%;background:var(--accent);color:white;font-family:var(--mono);font-size:13px;font-weight:600;padding:11px;border:none;border-radius:7px;cursor:pointer;transition:background 0.15s}
   .btn-login:hover{background:#2563eb}
-
-  /* HEADER */
   header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
   .logo{display:flex;align-items:center;gap:12px}
   .logo-icon{width:32px;height:32px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px}
@@ -52,13 +39,9 @@
   .btn-ghost:hover{background:var(--surface2);color:var(--text)}
   .btn-logout{background:transparent;color:var(--text-muted);border:1px solid var(--border);font-size:11px;padding:6px 12px}
   .btn-logout:hover{color:var(--red);border-color:rgba(239,68,68,0.4)}
-
-  /* LEGEND */
   .legend{display:flex;gap:16px;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border);flex-wrap:wrap}
   .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);font-family:var(--mono)}
   .legend-dot{width:8px;height:8px;border-radius:50%}
-
-  /* BOARD */
   .board-wrapper{padding:20px 16px;overflow-x:auto}
   .board{display:flex;gap:14px;min-width:max-content;align-items:flex-start}
   .column{width:290px;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;flex-shrink:0}
@@ -72,42 +55,26 @@
   .column-hint{padding:8px 16px;font-size:11px;color:var(--text-muted);font-family:var(--mono);border-bottom:1px solid var(--border);background:var(--surface2)}
   .column-cards{padding:12px;display:flex;flex-direction:column;gap:8px;min-height:100px}
   .empty-state{padding:20px;text-align:center;color:var(--text-muted);font-size:12px;font-family:var(--mono);border:1px dashed var(--border);border-radius:6px}
-
-  /* CARDS */
   .card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;position:relative;transition:border-color 0.15s,transform 0.1s}
   .card:hover{transform:translateY(-1px)}
   .card-status-bar{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:8px 0 0 8px}
-  .card.green .card-status-bar{background:var(--green)}
-  .card.yellow .card-status-bar{background:var(--yellow)}
-  .card.red .card-status-bar{background:var(--red)}
-  .card.neutral .card-status-bar{background:var(--text-muted)}
-  .card.green{background:linear-gradient(135deg,var(--green-bg),var(--surface2))}
-  .card.yellow{background:linear-gradient(135deg,var(--yellow-bg),var(--surface2))}
-  .card.red{background:linear-gradient(135deg,var(--red-bg),var(--surface2))}
+  .card.green .card-status-bar{background:var(--green)}.card.yellow .card-status-bar{background:var(--yellow)}.card.red .card-status-bar{background:var(--red)}.card.neutral .card-status-bar{background:var(--text-muted)}
+  .card.green{background:linear-gradient(135deg,var(--green-bg),var(--surface2))}.card.yellow{background:linear-gradient(135deg,var(--yellow-bg),var(--surface2))}.card.red{background:linear-gradient(135deg,var(--red-bg),var(--surface2))}
   .card-name{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;padding-left:6px}
   .card-meta{display:flex;flex-direction:column;gap:3px;padding-left:6px}
   .card-meta-row{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);font-family:var(--mono)}
   .card-meta-row .label{color:var(--text-dim)}
   .badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-family:var(--mono);font-weight:600;padding:2px 8px;border-radius:4px;letter-spacing:0.05em}
-  .badge-green{background:var(--green-bg);color:var(--green);border:1px solid rgba(34,197,94,0.2)}
-  .badge-yellow{background:var(--yellow-bg);color:var(--yellow);border:1px solid rgba(234,179,8,0.2)}
-  .badge-red{background:var(--red-bg);color:var(--red);border:1px solid rgba(239,68,68,0.2)}
-  .badge-neutral{background:var(--surface);color:var(--text-muted);border:1px solid var(--border)}
+  .badge-green{background:var(--green-bg);color:var(--green);border:1px solid rgba(34,197,94,0.2)}.badge-yellow{background:var(--yellow-bg);color:var(--yellow);border:1px solid rgba(234,179,8,0.2)}.badge-red{background:var(--red-bg);color:var(--red);border:1px solid rgba(239,68,68,0.2)}.badge-neutral{background:var(--surface);color:var(--text-muted);border:1px solid var(--border)}
   .card-actions{display:flex;gap:6px;margin-top:10px;padding-left:6px;flex-wrap:wrap}
   .card-btn{font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer;transition:all 0.12s}
   .card-btn:hover{background:var(--surface);color:var(--text)}
-  .card-btn.gcal{color:#4285f4;border-color:rgba(66,133,244,0.3)}
-  .card-btn.gcal:hover{background:rgba(66,133,244,0.1)}
-  .card-btn.mail{color:#10b981;border-color:rgba(16,185,129,0.3)}
-  .card-btn.mail:hover{background:rgba(16,185,129,0.1)}
-  .card-btn.move{color:#8b5cf6;border-color:rgba(139,92,246,0.3)}
-  .card-btn.move:hover{background:rgba(139,92,246,0.1)}
-  .card-btn.danger{color:var(--red);border-color:rgba(239,68,68,0.3)}
-  .card-btn.danger:hover{background:var(--red-bg)}
+  .card-btn.gcal{color:#4285f4;border-color:rgba(66,133,244,0.3)}.card-btn.gcal:hover{background:rgba(66,133,244,0.1)}
+  .card-btn.mail{color:#10b981;border-color:rgba(16,185,129,0.3)}.card-btn.mail:hover{background:rgba(16,185,129,0.1)}
+  .card-btn.move{color:#8b5cf6;border-color:rgba(139,92,246,0.3)}.card-btn.move:hover{background:rgba(139,92,246,0.1)}
+  .card-btn.danger{color:var(--red);border-color:rgba(239,68,68,0.3)}.card-btn.danger:hover{background:var(--red-bg)}
   .countdown{font-size:10px;font-family:var(--mono);margin-top:4px;padding-left:6px}
   .countdown.green{color:var(--green)}.countdown.yellow{color:var(--yellow)}.countdown.red{color:var(--red)}
-
-  /* MODAL */
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
   .modal-overlay.open{display:flex}
   .modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;width:460px;max-width:95vw;animation:modalIn 0.2s ease;max-height:90vh;overflow-y:auto}
@@ -129,8 +96,6 @@
   .move-date-box label{display:block;font-family:var(--mono);font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
   .move-date-box input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:9px 12px;color:var(--text);font-family:var(--mono);font-size:13px;outline:none;transition:border-color 0.15s}
   .move-date-box input:focus{border-color:var(--accent)}
-
-  /* SETTINGS */
   .config-section{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:16px}
   .config-section-title{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px}
   .config-note{font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:8px;line-height:1.6}
@@ -144,13 +109,8 @@
   .btn-icon:hover{background:var(--red-bg)}
   .btn-add-row{background:transparent;border:1px dashed var(--border);color:var(--text-muted);border-radius:5px;padding:7px 14px;cursor:pointer;font-family:var(--mono);font-size:11px;width:100%;transition:all 0.12s;margin-top:4px}
   .btn-add-row:hover{border-color:var(--accent);color:var(--accent)}
-
-  /* EMAIL PREVIEW */
   .email-preview{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:var(--mono);font-size:12px;line-height:1.9;color:var(--text-dim)}
-  .email-preview strong{color:var(--text-dim)}
-  .email-preview .val{color:var(--text)}
-
-  /* TOAST */
+  .email-preview strong{color:var(--text-dim)}.email-preview .val{color:var(--text)}
   .toast{position:fixed;bottom:24px;right:24px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 18px;font-family:var(--mono);font-size:12px;color:var(--text);z-index:300;transform:translateY(80px);opacity:0;transition:all 0.3s}
   .toast.show{transform:translateY(0);opacity:1}
   .toast.success{border-color:rgba(34,197,94,0.4);color:var(--green)}
@@ -159,32 +119,29 @@
 </head>
 <body>
 
-<!-- LOADER -->
 <div id="loader">
-  <div class="loader-icon">⚖️</div>
+  <div class="loader-icon">&#9878;</div>
   <div class="loader-text">CONNESSIONE AL DATABASE...</div>
 </div>
 
-<!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
-    <div class="login-icon">⚖️</div>
+    <div class="login-icon">&#9878;</div>
     <div class="login-title">RISCOSSIONE BOARD</div>
     <div class="login-sub">Gestione procedimenti coattivi</div>
     <div class="field" style="text-align:left">
       <label>Password</label>
-      <input type="password" id="loginPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+      <input type="password" id="loginPwd" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
     <div class="login-error" id="loginError"></div>
     <button class="btn-login" onclick="doLogin()">Accedi</button>
   </div>
 </div>
 
-<!-- APP -->
 <div id="app" style="display:none">
   <header>
     <div class="logo">
-      <div class="logo-icon">⚖️</div>
+      <div class="logo-icon">&#9878;</div>
       <div>
         <div class="logo-text">RISCOSSIONE BOARD</div>
         <div class="logo-sub">Gestione procedimenti coattivi</div>
@@ -192,66 +149,51 @@
     </div>
     <div class="header-right">
       <div class="sync-dot" title="Sincronizzato con Firebase"></div>
-      <button class="btn btn-ghost" onclick="exportData()">↓ Esporta</button>
-      <button class="btn btn-ghost" onclick="openSettings()">⚙ Impostazioni</button>
+      <button class="btn btn-ghost" onclick="exportData()">&#8595; Esporta</button>
+      <button class="btn btn-ghost" onclick="openSettings()">&#9881; Impostazioni</button>
       <button class="btn btn-primary" onclick="openAddModal()">+ Nuova postalizzazione</button>
       <button class="btn btn-logout" onclick="doLogout()">Esci</button>
     </div>
   </header>
-
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Nei termini</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div>Attenzione (121–365gg)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div>Attenzione (121-365gg)</div>
     <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Scaduto / Urgente (&gt;365gg)</div>
   </div>
-
   <div class="board-wrapper">
     <div class="board">
       <div class="column col-ae">
         <div class="column-header"><span class="column-title">Accertamento Esecutivo</span><span class="column-step">FASE 1</span></div>
-        <div class="column-hint">🟢 &lt;120gg · 🟡 121–365gg · 🔴 &gt;365gg</div>
+        <div class="column-hint">Verde &lt;120gg - Giallo 121-365gg - Rosso &gt;365gg</div>
         <div class="column-cards" id="col-ae"></div>
       </div>
       <div class="column col-sc">
-        <div class="column-header"><span class="column-title">Sollecito Coattivo</span><span class="column-step">FASE 2 · +120gg</span></div>
-        <div class="column-hint">⏳ Verifica data ultima notifica vs 365gg</div>
+        <div class="column-header"><span class="column-title">Sollecito Coattivo</span><span class="column-step">FASE 2 +120gg</span></div>
+        <div class="column-hint">Verifica data ultima notifica vs 365gg</div>
         <div class="column-cards" id="col-sc"></div>
       </div>
       <div class="column col-ai">
-        <div class="column-header"><span class="column-title">Avviso di Intimazione</span><span class="column-step">FASE 2b · se &gt;365gg</span></div>
-        <div class="column-hint">⚠️ Obbligatorio se notifica &gt;365gg</div>
+        <div class="column-header"><span class="column-title">Avviso di Intimazione</span><span class="column-step">FASE 2b se &gt;365gg</span></div>
+        <div class="column-hint">Obbligatorio se notifica &gt;365gg</div>
         <div class="column-cards" id="col-ai"></div>
       </div>
       <div class="column col-fc">
-        <div class="column-header"><span class="column-title">Fase Coattiva</span><span class="column-step">FASE 3 · +60gg</span></div>
-        <div class="column-hint">🔒 Fermo amm. / Pignoramento</div>
+        <div class="column-header"><span class="column-title">Fase Coattiva</span><span class="column-step">FASE 3 +60gg</span></div>
+        <div class="column-hint">Fermo amm. / Pignoramento</div>
         <div class="column-cards" id="col-fc"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ADD MODAL -->
 <div class="modal-overlay" id="addModal">
   <div class="modal">
     <div class="modal-title">+ Nuova postalizzazione</div>
     <div class="modal-subtitle">Inserisci i dati dell'avviso di accertamento esecutivo</div>
-    <div class="field">
-      <label>Nome / Riferimento</label>
-      <input type="text" id="inp-name" placeholder="es. CUP 2024 — Rossi Mario">
-    </div>
-    <div class="field">
-      <label>Entrata (assegna referente)</label>
-      <select id="inp-entrata"><option value="">— Seleziona entrata —</option></select>
-    </div>
-    <div class="field">
-      <label>Data invio accertamento</label>
-      <input type="date" id="inp-date">
-    </div>
-    <div class="field">
-      <label>Note (opzionale)</label>
-      <input type="text" id="inp-note" placeholder="es. importo, contribuente, tributo...">
-    </div>
+    <div class="field"><label>Nome / Riferimento</label><input type="text" id="inp-name" placeholder="es. CUP 2024 - Rossi Mario"></div>
+    <div class="field"><label>Entrata (assegna referente)</label><select id="inp-entrata"><option value="">- Seleziona entrata -</option></select></div>
+    <div class="field"><label>Data invio accertamento</label><input type="date" id="inp-date"></div>
+    <div class="field"><label>Note (opzionale)</label><input type="text" id="inp-note" placeholder="es. importo, contribuente, tributo..."></div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('addModal')">Annulla</button>
       <button class="btn btn-primary" onclick="addCard()">Inserisci</button>
@@ -259,7 +201,6 @@
   </div>
 </div>
 
-<!-- MOVE MODAL -->
 <div class="modal-overlay" id="moveModal">
   <div class="modal">
     <div class="modal-title" id="moveModalTitle">Sposta postalizzazione</div>
@@ -273,45 +214,40 @@
   </div>
 </div>
 
-<!-- SETTINGS MODAL -->
 <div class="modal-overlay" id="settingsModal">
   <div class="modal" style="width:540px">
-    <div class="modal-title">⚙ Impostazioni</div>
-    <div class="modal-subtitle">Password, rubrica colleghi e configurazione email</div>
+    <div class="modal-title">Impostazioni</div>
+    <div class="modal-subtitle">Password, rubrica colleghi e configurazione email - salvate per tutti</div>
     <div class="config-section">
-      <div class="config-section-title">🔒 Password accesso</div>
+      <div class="config-section-title">Password accesso</div>
       <div class="field" style="margin-bottom:0">
         <label>Nuova password (lascia vuoto per non cambiare)</label>
-        <input type="password" id="set-pwd" placeholder="••••••••">
+        <input type="password" id="set-pwd" placeholder="Nuova password">
       </div>
     </div>
     <div class="config-section">
-      <div class="config-section-title">✉ EmailJS — Configurazione</div>
+      <div class="config-section-title">EmailJS - Configurazione</div>
       <div class="field"><label>Public Key</label><input type="text" id="set-ejs-pubkey" placeholder="es. aBcDeFgHiJ..."></div>
       <div class="field"><label>Service ID</label><input type="text" id="set-ejs-service" placeholder="es. service_xxxxxxx"></div>
       <div class="field" style="margin-bottom:0"><label>Template ID</label><input type="text" id="set-ejs-template" placeholder="es. template_xxxxxxx"></div>
-      <div class="config-note">
-        Registrati su <a href="https://www.emailjs.com" target="_blank">emailjs.com</a> (200 email/mese gratis).<br>
-        Variabili template: <strong>{{to_name}}</strong>, <strong>{{to_email}}</strong>, <strong>{{fascicolo}}</strong>, <strong>{{fase}}</strong>, <strong>{{scadenza}}</strong>, <strong>{{note}}</strong>
-      </div>
+      <div class="config-note">Variabili template: to_name, to_email, fascicolo, fase, scadenza, note</div>
     </div>
     <div class="config-section">
-      <div class="config-section-title">👥 Rubrica colleghi / entrate</div>
+      <div class="config-section-title">Rubrica colleghi / entrate</div>
       <div class="rubrica-header"><span>Entrata</span><span>Referente</span><span>Email</span><span></span></div>
       <div id="rubrica-rows"></div>
       <button class="btn-add-row" onclick="addRubricaRow()">+ Aggiungi riga</button>
     </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('settingsModal')">Annulla</button>
-      <button class="btn btn-primary" onclick="saveSettings()">Salva</button>
+      <button class="btn btn-primary" onclick="saveSettings()">Salva per tutti</button>
     </div>
   </div>
 </div>
 
-<!-- EMAIL PREVIEW MODAL -->
 <div class="modal-overlay" id="emailModal">
   <div class="modal">
-    <div class="modal-title">✉ Invia reminder email</div>
+    <div class="modal-title">Invia reminder email</div>
     <div class="modal-subtitle" id="emailModalSub"></div>
     <div class="email-preview" id="emailPreview"></div>
     <div class="modal-actions">
@@ -323,10 +259,9 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- FIREBASE (module) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+  import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBareHYG2_2cItgqpUbKBLHnOf5yTpqE5o",
@@ -334,339 +269,328 @@
     databaseURL: "https://board-riscossione-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "board-riscossione",
     storageBucket: "board-riscossione.firebasestorage.app",
-    messagingSenderId: "909280118692",
+    messagingSenderId: "909280118682",
     appId: "1:909280118682:web:fc44b622cd630f6a0a1c23"
   };
 
   const app = initializeApp(firebaseConfig);
   const db  = getDatabase(app);
 
-  // Esponi al codice globale
   window._fbSet    = (path, data) => set(ref(db, path), data);
-  window._fbRemove = (path)       => remove(ref(db, path));
   window._fbListen = (path, cb)   => onValue(ref(db, path), snap => cb(snap.val()));
 
-  // Ascolta le cards in tempo reale — avvia l'app quando arrivano i dati
+  let cfgLoaded   = false;
+  let cardsLoaded = false;
+
+  function checkReady() {
+    if (!cfgLoaded || !cardsLoaded) return;
+    document.getElementById('loader').classList.add('hidden');
+    document.getElementById('loginScreen').classList.add('show');
+  }
+
+  window._fbListen('cfg', (data) => {
+    const DEFAULT_CFG = {
+      password: 'riscossione2024',
+      emailjs: { pubkey: '', serviceId: '', templateId: '' },
+      rubrica: [
+        { entrata: 'CUP', nome: 'Stefano', email: 'stefano@comune.it' },
+        { entrata: 'CdS', nome: 'Laura',   email: 'laura@comune.it' }
+      ]
+    };
+    window._cfg = data || DEFAULT_CFG;
+    if (window._onCfgUpdate) window._onCfgUpdate(window._cfg);
+    if (!cfgLoaded) { cfgLoaded = true; checkReady(); }
+  });
+
   window._fbListen('cards', (data) => {
-    window._cardsFromFb = data ? Object.values(data) : [];
-    if (window._appReady) {
-      window._onCardsUpdate(window._cardsFromFb);
-    } else {
-      // Prima volta: nascondi loader, mostra login
-      window._appReady = true;
-      document.getElementById('loader').classList.add('hidden');
-      document.getElementById('loginScreen').classList.add('show');
-    }
+    window._cardsData = data ? Object.values(data) : [];
+    if (window._onCardsUpdate) window._onCardsUpdate(window._cardsData);
+    if (!cardsLoaded) { cardsLoaded = true; checkReady(); }
   });
 </script>
 
-<!-- APP LOGIC -->
 <script>
-const DEFAULT_PASSWORD = 'riscossione2024';
+  const COLS = {
+    ae: { label: 'Accertamento Esecutivo', next: ['sc'] },
+    sc: { label: 'Sollecito Coattivo',     next: ['ai','fc'] },
+    ai: { label: 'Avviso di Intimazione',  next: ['fc'] },
+    fc: { label: 'Fase Coattiva',          next: [] }
+  };
+  const COL_HINTS = {
+    sc: 'Scadenza: +120gg dalla data invio',
+    ai: 'Solo se ultima notifica > 365gg',
+    fc: 'Scadenza: +60gg dal sollecito'
+  };
 
-// cfg resta in localStorage (configurazione locale per dispositivo)
-let cfg = JSON.parse(localStorage.getItem('risc-cfg') || 'null') || {
-  password: DEFAULT_PASSWORD,
-  emailjs: { pubkey: '', serviceId: '', templateId: '' },
-  rubrica: [
-    { entrata: 'CUP', nome: 'Stefano', email: 'stefano@comune.it' },
-    { entrata: 'CdS', nome: 'Laura',   email: 'laura@comune.it'   }
-  ]
-};
+  let cfg        = null;
+  let cards      = [];
+  let loggedIn   = false;
+  let pendingEmail = null;
 
-let cards = [];
-let pendingEmail = null;
-let loggedIn = false;
+  // Riceve aggiornamenti cfg da Firebase
+  window._onCfgUpdate = function(newCfg) {
+    cfg = newCfg;
+    // Se siamo gia' loggati aggiorna la UI
+    if (loggedIn) renderCards();
+  };
 
-const COLS = {
-  ae: { label: 'Accertamento Esecutivo', next: ['sc'] },
-  sc: { label: 'Sollecito Coattivo',     next: ['ai','fc'] },
-  ai: { label: 'Avviso di Intimazione',  next: ['fc'] },
-  fc: { label: 'Fase Coattiva',          next: [] }
-};
-const COL_HINTS = {
-  sc: 'Scadenza: +120gg dalla data invio',
-  ai: 'Solo se ultima notifica > 365gg',
-  fc: 'Scadenza: +60gg dal sollecito'
-};
+  // Riceve aggiornamenti cards da Firebase
+  window._onCardsUpdate = function(newCards) {
+    cards = newCards || [];
+    if (loggedIn) renderCards();
+  };
 
-// Callback chiamata da Firebase quando i dati cambiano
-window._onCardsUpdate = function(newCards) {
-  cards = newCards || [];
-  if (loggedIn) renderCards();
-};
+  function saveCfg() {
+    window._fbSet('cfg', cfg);
+  }
 
-// ── SAVE su Firebase ──────────────────────────────────────────
-function save() {
-  // Converti array in oggetto keyed per id (Firebase preferisce oggetti)
-  const obj = {};
-  cards.forEach(c => { obj[c.id] = c; });
-  window._fbSet('cards', obj);
-}
+  function saveCards() {
+    const obj = {};
+    cards.forEach(function(c) { obj[c.id] = c; });
+    window._fbSet('cards', obj);
+  }
 
-function saveCfg() { localStorage.setItem('risc-cfg', JSON.stringify(cfg)); }
+  function doLogin() {
+    var pwd = document.getElementById('loginPwd').value;
+    // cfg potrebbe non essere ancora arrivato da Firebase
+    if (!cfg) { showToast('Attendere il caricamento...'); return; }
+    if (pwd === cfg.password) {
+      loggedIn = true;
+      if (window._cardsData) cards = window._cardsData;
+      document.getElementById('loginScreen').classList.remove('show');
+      document.getElementById('app').style.display = '';
+      renderCards();
+    } else {
+      document.getElementById('loginError').textContent = 'Password errata';
+      document.getElementById('loginPwd').value = '';
+    }
+  }
 
-// ── LOGIN ─────────────────────────────────────────────────────
-function doLogin() {
-  if (document.getElementById('loginPwd').value === cfg.password) {
-    loggedIn = true;
-    // Carica i dati che Firebase ha già mandato
-    if (window._cardsFromFb !== undefined) cards = window._cardsFromFb;
-    document.getElementById('loginScreen').classList.remove('show');
-    document.getElementById('app').style.display = '';
-    renderCards();
-  } else {
-    document.getElementById('loginError').textContent = '⚠ Password errata';
+  function doLogout() {
+    loggedIn = false;
+    document.getElementById('loginScreen').classList.add('show');
+    document.getElementById('app').style.display = 'none';
     document.getElementById('loginPwd').value = '';
+    document.getElementById('loginError').textContent = '';
   }
-}
 
-function doLogout() {
-  loggedIn = false;
-  document.getElementById('loginScreen').classList.add('show');
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('loginPwd').value = '';
-  document.getElementById('loginError').textContent = '';
-}
+  function today() { return new Date().toISOString().split('T')[0]; }
+  function daysDiff(d) { var now = new Date(); now.setHours(0,0,0,0); return Math.floor((now - new Date(d)) / 86400000); }
+  function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate()+n); return x.toISOString().split('T')[0]; }
+  function fmtDate(d) { if (!d) return '-'; var p = d.split('-'); return p[2]+'/'+p[1]+'/'+p[0]; }
+  function getReferente(entrata) { return cfg && cfg.rubrica ? cfg.rubrica.find(function(r){ return r.entrata === entrata; }) : null; }
 
-// ── UTILS ─────────────────────────────────────────────────────
-function today()       { return new Date().toISOString().split('T')[0]; }
-function daysDiff(d)   { const now = new Date(); now.setHours(0,0,0,0); return Math.floor((now - new Date(d)) / 86400000); }
-function addDays(d, n) { const x = new Date(d); x.setDate(x.getDate()+n); return x.toISOString().split('T')[0]; }
-function fmtDate(d)    { if (!d) return '—'; const [y,m,dd] = d.split('-'); return `${dd}/${m}/${y}`; }
-function getReferente(entrata) { return cfg.rubrica.find(r => r.entrata === entrata) || null; }
-
-// ── RENDER ────────────────────────────────────────────────────
-function getStatus(col, date) {
-  if (col !== 'ae') return 'neutral';
-  const d = daysDiff(date);
-  return d <= 120 ? 'green' : d <= 365 ? 'yellow' : 'red';
-}
-
-function badgeHtml(col, date) {
-  const d = daysDiff(date);
-  if (col === 'ae') {
-    if (d <= 120) return `<span class="badge badge-green">🟢 ${d}gg</span>`;
-    if (d <= 365) return `<span class="badge badge-yellow">🟡 ${d}gg</span>`;
-    return `<span class="badge badge-red">🔴 ${d}gg — URGENTE</span>`;
+  function getStatus(col, date) {
+    if (col !== 'ae') return 'neutral';
+    var d = daysDiff(date);
+    return d <= 120 ? 'green' : d <= 365 ? 'yellow' : 'red';
   }
-  return `<span class="badge badge-neutral">${d}gg in questa fase</span>`;
-}
 
-function countdownHtml(col, date) {
-  const d = daysDiff(date);
-  if (col === 'ae') {
-    const rem = 120 - d;
-    if (rem > 0) return `<div class="countdown green">▶ Reminder sollecito in ${rem} giorni</div>`;
-    if (d <= 365) return `<div class="countdown yellow">⚠ Scadenza superata di ${d-120}gg</div>`;
-    return `<div class="countdown red">🔴 Oltre 365gg — verificare intimazione</div>`;
+  function badgeHtml(col, date) {
+    var d = daysDiff(date);
+    if (col === 'ae') {
+      if (d <= 120) return '<span class="badge badge-green">Verde ' + d + 'gg</span>';
+      if (d <= 365) return '<span class="badge badge-yellow">Giallo ' + d + 'gg</span>';
+      return '<span class="badge badge-red">Rosso ' + d + 'gg URGENTE</span>';
+    }
+    return '<span class="badge badge-neutral">' + d + 'gg in questa fase</span>';
   }
-  if (col === 'sc') return `<div class="countdown yellow">⚠ Verifica data ultima notifica</div>`;
-  return '';
-}
 
-function renderCards() {
-  ['ae','sc','ai','fc'].forEach(col => {
-    const el = document.getElementById('col-' + col);
-    const colCards = cards.filter(c => c.col === col);
-    if (!colCards.length) { el.innerHTML = `<div class="empty-state">Nessun fascicolo</div>`; return; }
+  function countdownHtml(col, date) {
+    var d = daysDiff(date);
+    if (col === 'ae') {
+      var rem = 120 - d;
+      if (rem > 0) return '<div class="countdown green">Reminder sollecito in ' + rem + ' giorni</div>';
+      if (d <= 365) return '<div class="countdown yellow">Scadenza superata di ' + (d-120) + 'gg</div>';
+      return '<div class="countdown red">Oltre 365gg - verificare intimazione</div>';
+    }
+    if (col === 'sc') return '<div class="countdown yellow">Verifica data ultima notifica</div>';
+    return '';
+  }
 
-    el.innerHTML = colCards.map(card => {
-      const status  = getStatus(card.col, card.date);
-      const hasRem  = col === 'ae' || col === 'sc';
-      const ref     = getReferente(card.entrata);
-      const hasMail = !!ref;
+  function renderCards() {
+    ['ae','sc','ai','fc'].forEach(function(col) {
+      var el = document.getElementById('col-' + col);
+      var colCards = cards.filter(function(c){ return c.col === col; });
+      if (!colCards.length) { el.innerHTML = '<div class="empty-state">Nessun fascicolo</div>'; return; }
+      el.innerHTML = colCards.map(function(card) {
+        var status  = getStatus(card.col, card.date);
+        var hasRem  = col === 'ae' || col === 'sc';
+        var ref     = getReferente(card.entrata);
+        var hasMail = !!ref;
+        var nextLen = COLS[col].next.length;
+        var actions = '';
+        if (hasRem)  actions += '<button class="card-btn gcal" onclick="gcalLink(\''+card.id+'\')">Cal</button>';
+        if (hasMail) actions += '<button class="card-btn mail" onclick="openEmailModal(\''+card.id+'\')">Mail</button>';
+        if (nextLen) actions += '<button class="card-btn move" onclick="openMoveModal(\''+card.id+'\')">Sposta</button>';
+        else         actions += '<span style="font-size:10px;color:var(--green);font-family:var(--mono);padding:4px 0">Fase finale</span>';
+        actions += '<button class="card-btn danger" onclick="deleteCard(\''+card.id+'\')">X</button>';
+        var meta = '<div class="card-meta-row"><span class="label">Invio:</span><span>'+fmtDate(card.date)+'</span></div>';
+        if (card.entrata) meta += '<div class="card-meta-row"><span class="label">Entrata:</span><span>'+card.entrata+(ref ? ' - '+ref.nome : '')+'</span></div>';
+        if (card.note)    meta += '<div class="card-meta-row"><span class="label">Note:</span><span>'+card.note+'</span></div>';
+        return '<div class="card '+status+'"><div class="card-status-bar"></div><div class="card-name">'+card.name+'</div><div class="card-meta">'+meta+'<div style="margin-top:5px">'+badgeHtml(card.col,card.date)+'</div>'+countdownHtml(card.col,card.date)+'</div><div class="card-actions">'+actions+'</div></div>';
+      }).join('');
+    });
+  }
 
-      return `<div class="card ${status}">
-        <div class="card-status-bar"></div>
-        <div class="card-name">${card.name}</div>
-        <div class="card-meta">
-          <div class="card-meta-row"><span class="label">Invio:</span><span>${fmtDate(card.date)}</span></div>
-          ${card.entrata ? `<div class="card-meta-row"><span class="label">Entrata:</span><span>${card.entrata}${ref ? ` · ${ref.nome}` : ''}</span></div>` : ''}
-          ${card.note    ? `<div class="card-meta-row"><span class="label">Note:</span><span>${card.note}</span></div>` : ''}
-          <div style="margin-top:5px">${badgeHtml(card.col, card.date)}</div>
-          ${countdownHtml(card.col, card.date)}
-        </div>
-        <div class="card-actions">
-          ${hasRem  ? `<button class="card-btn gcal" onclick="gcalLink('${card.id}')">📅 Calendar</button>` : ''}
-          ${hasMail ? `<button class="card-btn mail" onclick="openEmailModal('${card.id}')">✉ Reminder</button>` : ''}
-          ${COLS[col].next.length ? `<button class="card-btn move" onclick="openMoveModal('${card.id}')">→ Sposta</button>` : '<span style="font-size:10px;color:var(--green);font-family:var(--mono);padding:4px 0">✓ Fase finale</span>'}
-          <button class="card-btn danger" onclick="deleteCard('${card.id}')">✕</button>
-        </div>
-      </div>`;
+  function gcalLink(id) {
+    var c = cards.find(function(x){ return x.id === id; });
+    var targetDate, title, detail;
+    if (c.col === 'ae') {
+      targetDate = addDays(c.date, 120);
+      title  = '[RISCOSSIONE] Sollecito Coattivo - ' + c.name;
+      detail = 'Emettere sollecito coattivo per ' + c.name + '. Invio AE: ' + fmtDate(c.date);
+    } else if (c.col === 'sc') {
+      targetDate = addDays(c.colDate || c.date, 60);
+      title  = '[RISCOSSIONE] Fase Coattiva - ' + c.name;
+      detail = 'Avviare fase coattiva per ' + c.name;
+    } else { showToast('Nessun reminder per questa fase'); return; }
+    var d = targetDate.replace(/-/g,'');
+    window.open('https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(title)+'&dates='+d+'/'+d+'&details='+encodeURIComponent(detail)+'&sf=true&output=xml','_blank');
+  }
+
+  function openEmailModal(id) {
+    var card = cards.find(function(x){ return x.id === id; });
+    var ref  = getReferente(card.entrata);
+    if (!ref) { showToast('Nessun referente per questa entrata'); return; }
+    if (!cfg.emailjs.pubkey || !cfg.emailjs.serviceId || !cfg.emailjs.templateId) {
+      showToast('Configura EmailJS nelle Impostazioni', 'error'); return;
+    }
+    var scadenza = '-';
+    if (card.col === 'ae') scadenza = fmtDate(addDays(card.date, 120));
+    else if (card.col === 'sc') scadenza = fmtDate(addDays(card.colDate || card.date, 60));
+    pendingEmail = { card: card, ref: ref, scadenza: scadenza };
+    document.getElementById('emailModalSub').textContent = 'Destinatario: ' + ref.nome + ' (' + ref.email + ')';
+    document.getElementById('emailPreview').innerHTML =
+      '<strong>A:</strong> <span class="val">'+ref.nome+' ('+ref.email+')</span><br>' +
+      '<strong>Fascicolo:</strong> <span class="val">'+card.name+'</span><br>' +
+      '<strong>Fase:</strong> <span class="val">'+COLS[card.col].label+'</span><br>' +
+      '<strong>Scadenza:</strong> <span class="val">'+scadenza+'</span><br>' +
+      (card.note ? '<strong>Note:</strong> <span class="val">'+card.note+'</span>' : '');
+    document.getElementById('emailModal').classList.add('open');
+  }
+
+  function sendEmailConfirmed() {
+    if (!pendingEmail) return;
+    var card = pendingEmail.card, ref = pendingEmail.ref, scadenza = pendingEmail.scadenza;
+    var btn = document.getElementById('emailSendBtn');
+    btn.textContent = 'Invio...'; btn.disabled = true;
+    emailjs.init(cfg.emailjs.pubkey);
+    emailjs.send(cfg.emailjs.serviceId, cfg.emailjs.templateId, {
+      to_name: ref.nome, to_email: ref.email,
+      fascicolo: card.name, fase: COLS[card.col].label,
+      scadenza: scadenza, note: card.note || '-'
+    }).then(function() {
+      closeModal('emailModal');
+      showToast('Email inviata a ' + ref.nome, 'success');
+      pendingEmail = null;
+    }).catch(function(err) {
+      showToast('Errore: ' + (err.text || JSON.stringify(err)), 'error');
+    }).finally(function() { btn.textContent = 'Invia ora'; btn.disabled = false; });
+  }
+
+  function openAddModal() {
+    document.getElementById('inp-date').value = today();
+    var sel = document.getElementById('inp-entrata');
+    sel.innerHTML = '<option value="">- Seleziona entrata -</option>';
+    if (cfg && cfg.rubrica) cfg.rubrica.forEach(function(r) {
+      var o = document.createElement('option');
+      o.value = r.entrata; o.textContent = r.entrata + ' - ' + r.nome;
+      sel.appendChild(o);
+    });
+    document.getElementById('addModal').classList.add('open');
+  }
+
+  function addCard() {
+    var name    = document.getElementById('inp-name').value.trim();
+    var date    = document.getElementById('inp-date').value;
+    var note    = document.getElementById('inp-note').value.trim();
+    var entrata = document.getElementById('inp-entrata').value;
+    if (!name || !date) { showToast('Compila nome e data'); return; }
+    cards.push({ id: Date.now().toString(), name: name, date: date, note: note, entrata: entrata, col: 'ae', colDate: today() });
+    saveCards(); closeModal('addModal');
+    document.getElementById('inp-name').value = '';
+    document.getElementById('inp-note').value = '';
+    showToast('Postalizzazione inserita');
+  }
+
+  function openMoveModal(id) {
+    var card = cards.find(function(c){ return c.id === id; });
+    document.getElementById('moveModalTitle').textContent = 'Sposta: ' + card.name;
+    document.getElementById('move-date').value = today();
+    document.getElementById('moveOptions').innerHTML = COLS[card.col].next.map(function(col) {
+      return '<button class="move-option" onclick="moveCard(\''+id+'\',\''+col+'\')"><span class="dest-name">'+COLS[col].label+'</span><span class="dest-hint">'+(COL_HINTS[col]||'')+'</span></button>';
     }).join('');
-  });
-}
-
-// ── GOOGLE CALENDAR ───────────────────────────────────────────
-function gcalLink(id) {
-  const c = cards.find(x => x.id === id);
-  let targetDate, title, detail;
-  if (c.col === 'ae') {
-    targetDate = addDays(c.date, 120);
-    title  = `[RISCOSSIONE] Sollecito Coattivo — ${c.name}`;
-    detail = `Emettere sollecito coattivo per ${c.name}. Invio AE: ${fmtDate(c.date)}`;
-  } else if (c.col === 'sc') {
-    targetDate = addDays(c.colDate || c.date, 60);
-    title  = `[RISCOSSIONE] Fase Coattiva — ${c.name}`;
-    detail = `Avviare fase coattiva per ${c.name}.`;
-  } else { showToast('Nessun reminder per questa fase'); return; }
-  const d = targetDate.replace(/-/g,'');
-  window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${d}/${d}&details=${encodeURIComponent(detail)}&sf=true&output=xml`,'_blank');
-}
-
-// ── EMAIL ─────────────────────────────────────────────────────
-function openEmailModal(id) {
-  const card = cards.find(x => x.id === id);
-  const ref  = getReferente(card.entrata);
-  if (!ref) { showToast('⚠ Nessun referente configurato per questa entrata'); return; }
-  if (!cfg.emailjs.pubkey || !cfg.emailjs.serviceId || !cfg.emailjs.templateId) {
-    showToast('⚠ Configura EmailJS nelle Impostazioni prima di inviare', 'error');
-    return;
+    document.getElementById('moveModal').classList.add('open');
   }
-  let scadenza = '—';
-  if (card.col === 'ae') scadenza = fmtDate(addDays(card.date, 120));
-  else if (card.col === 'sc') scadenza = fmtDate(addDays(card.colDate || card.date, 60));
-  pendingEmail = { card, ref, scadenza };
-  document.getElementById('emailModalSub').textContent = `Destinatario: ${ref.nome} <${ref.email}>`;
-  document.getElementById('emailPreview').innerHTML = `
-    <strong>A:</strong> <span class="val">${ref.nome} (${ref.email})</span><br>
-    <strong>Fascicolo:</strong> <span class="val">${card.name}</span><br>
-    <strong>Entrata:</strong> <span class="val">${card.entrata}</span><br>
-    <strong>Fase attuale:</strong> <span class="val">${COLS[card.col].label}</span><br>
-    <strong>Prossima scadenza:</strong> <span class="val">${scadenza}</span><br>
-    ${card.note ? `<strong>Note:</strong> <span class="val">${card.note}</span>` : ''}
-  `;
-  document.getElementById('emailModal').classList.add('open');
-}
 
-function sendEmailConfirmed() {
-  if (!pendingEmail) return;
-  const { card, ref, scadenza } = pendingEmail;
-  const btn = document.getElementById('emailSendBtn');
-  btn.textContent = 'Invio...'; btn.disabled = true;
-  emailjs.init(cfg.emailjs.pubkey);
-  emailjs.send(cfg.emailjs.serviceId, cfg.emailjs.templateId, {
-    to_name: ref.nome, to_email: ref.email,
-    fascicolo: card.name, fase: COLS[card.col].label,
-    scadenza, note: card.note || '—'
-  }).then(() => {
-    closeModal('emailModal');
-    showToast(`✓ Email inviata a ${ref.nome}`, 'success');
-    pendingEmail = null;
-  }).catch(err => {
-    showToast('⚠ Errore: ' + (err.text || JSON.stringify(err)), 'error');
-  }).finally(() => { btn.textContent = 'Invia ora'; btn.disabled = false; });
-}
+  function moveCard(id, dest) {
+    var card = cards.find(function(c){ return c.id === id; });
+    var moveDate = document.getElementById('move-date').value || today();
+    if (card) { card.col = dest; card.colDate = moveDate; card.date = moveDate; }
+    saveCards(); closeModal('moveModal');
+    showToast('Spostato in ' + COLS[dest].label);
+  }
 
-// ── ADD CARD ──────────────────────────────────────────────────
-function openAddModal() {
-  document.getElementById('inp-date').value = today();
-  const sel = document.getElementById('inp-entrata');
-  sel.innerHTML = '<option value="">— Seleziona entrata —</option>';
-  cfg.rubrica.forEach(r => {
-    const o = document.createElement('option');
-    o.value = r.entrata; o.textContent = `${r.entrata} · ${r.nome}`;
-    sel.appendChild(o);
+  function deleteCard(id) {
+    if (!confirm('Eliminare questo fascicolo?')) return;
+    cards = cards.filter(function(c){ return c.id !== id; });
+    saveCards(); showToast('Fascicolo rimosso');
+  }
+
+  function openSettings() {
+    document.getElementById('set-pwd').value = '';
+    document.getElementById('set-ejs-pubkey').value   = cfg.emailjs.pubkey   || '';
+    document.getElementById('set-ejs-service').value  = cfg.emailjs.serviceId  || '';
+    document.getElementById('set-ejs-template').value = cfg.emailjs.templateId || '';
+    renderRubricaRows();
+    document.getElementById('settingsModal').classList.add('open');
+  }
+
+  function renderRubricaRows() {
+    document.getElementById('rubrica-rows').innerHTML = (cfg.rubrica || []).map(function(r, i) {
+      return '<div class="rubrica-row">' +
+        '<input type="text"  value="'+r.entrata+'" placeholder="es. CUP"         oninput="cfg.rubrica['+i+'].entrata=this.value">' +
+        '<input type="text"  value="'+r.nome+'"    placeholder="es. Stefano"     oninput="cfg.rubrica['+i+'].nome=this.value">' +
+        '<input type="email" value="'+r.email+'"   placeholder="email@comune.it" oninput="cfg.rubrica['+i+'].email=this.value">' +
+        '<button class="btn-icon" onclick="removeRubricaRow('+i+')">X</button></div>';
+    }).join('');
+  }
+
+  function addRubricaRow() { cfg.rubrica.push({ entrata:'', nome:'', email:'' }); renderRubricaRows(); }
+  function removeRubricaRow(i) { cfg.rubrica.splice(i,1); renderRubricaRows(); }
+
+  function saveSettings() {
+    var pwd = document.getElementById('set-pwd').value.trim();
+    if (pwd) cfg.password = pwd;
+    cfg.emailjs.pubkey     = document.getElementById('set-ejs-pubkey').value.trim();
+    cfg.emailjs.serviceId  = document.getElementById('set-ejs-service').value.trim();
+    cfg.emailjs.templateId = document.getElementById('set-ejs-template').value.trim();
+    saveCfg(); renderCards(); closeModal('settingsModal');
+    showToast('Impostazioni salvate per tutti', 'success');
+  }
+
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  function exportData() {
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(cards,null,2)],{type:'application/json'}));
+    a.download = 'riscossione-backup.json'; a.click();
+    showToast('Dati esportati');
+  }
+
+  function showToast(msg, type) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (type ? ' ' + type : '');
+    setTimeout(function(){ t.className = 'toast'; }, 3000);
+  }
+
+  document.querySelectorAll('.modal-overlay').forEach(function(el) {
+    el.addEventListener('click', function(e){ if (e.target === el) el.classList.remove('open'); });
   });
-  document.getElementById('addModal').classList.add('open');
-}
 
-function addCard() {
-  const name    = document.getElementById('inp-name').value.trim();
-  const date    = document.getElementById('inp-date').value;
-  const note    = document.getElementById('inp-note').value.trim();
-  const entrata = document.getElementById('inp-entrata').value;
-  if (!name || !date) { showToast('⚠ Compila nome e data'); return; }
-  const card = { id: Date.now().toString(), name, date, note, entrata, col: 'ae', colDate: today() };
-  cards.push(card);
-  save(); closeModal('addModal');
-  document.getElementById('inp-name').value = '';
-  document.getElementById('inp-note').value = '';
-  showToast('✓ Postalizzazione inserita');
-}
-
-// ── MOVE / DELETE ─────────────────────────────────────────────
-function openMoveModal(id) {
-  const card = cards.find(c => c.id === id);
-  document.getElementById('moveModalTitle').textContent = `Sposta: ${card.name}`;
-  document.getElementById('move-date').value = today();
-  document.getElementById('moveOptions').innerHTML = COLS[card.col].next.map(col => `
-    <button class="move-option" onclick="moveCard('${id}','${col}')">
-      <span class="dest-name">${COLS[col].label}</span>
-      <span class="dest-hint">${COL_HINTS[col] || ''}</span>
-    </button>`).join('');
-  document.getElementById('moveModal').classList.add('open');
-}
-
-function moveCard(id, dest) {
-  const card = cards.find(c => c.id === id);
-  const moveDate = document.getElementById('move-date').value || today();
-  if (card) { card.col = dest; card.colDate = moveDate; card.date = moveDate; }
-  save(); closeModal('moveModal');
-  showToast(`✓ Spostato in ${COLS[dest].label}`);
-}
-
-function deleteCard(id) {
-  if (!confirm('Eliminare questo fascicolo dalla board?')) return;
-  cards = cards.filter(c => c.id !== id);
-  save(); showToast('Fascicolo rimosso');
-}
-
-// ── SETTINGS ──────────────────────────────────────────────────
-function openSettings() {
-  document.getElementById('set-pwd').value = '';
-  document.getElementById('set-ejs-pubkey').value   = cfg.emailjs.pubkey;
-  document.getElementById('set-ejs-service').value  = cfg.emailjs.serviceId;
-  document.getElementById('set-ejs-template').value = cfg.emailjs.templateId;
-  renderRubricaRows();
-  document.getElementById('settingsModal').classList.add('open');
-}
-
-function renderRubricaRows() {
-  document.getElementById('rubrica-rows').innerHTML = cfg.rubrica.map((r, i) => `
-    <div class="rubrica-row">
-      <input type="text"  value="${r.entrata}" placeholder="es. CUP"         oninput="cfg.rubrica[${i}].entrata=this.value">
-      <input type="text"  value="${r.nome}"    placeholder="es. Stefano"     oninput="cfg.rubrica[${i}].nome=this.value">
-      <input type="email" value="${r.email}"   placeholder="email@comune.it" oninput="cfg.rubrica[${i}].email=this.value">
-      <button class="btn-icon" onclick="removeRubricaRow(${i})">✕</button>
-    </div>`).join('');
-}
-
-function addRubricaRow()     { cfg.rubrica.push({ entrata:'', nome:'', email:'' }); renderRubricaRows(); }
-function removeRubricaRow(i) { cfg.rubrica.splice(i,1); renderRubricaRows(); }
-
-function saveSettings() {
-  const pwd = document.getElementById('set-pwd').value.trim();
-  if (pwd) cfg.password = pwd;
-  cfg.emailjs.pubkey     = document.getElementById('set-ejs-pubkey').value.trim();
-  cfg.emailjs.serviceId  = document.getElementById('set-ejs-service').value.trim();
-  cfg.emailjs.templateId = document.getElementById('set-ejs-template').value.trim();
-  saveCfg(); renderCards(); closeModal('settingsModal');
-  showToast('✓ Impostazioni salvate', 'success');
-}
-
-// ── MISC ──────────────────────────────────────────────────────
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-function exportData() {
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([JSON.stringify(cards,null,2)],{type:'application/json'}));
-  a.download = 'riscossione-backup.json'; a.click();
-  showToast('✓ Dati esportati');
-}
-
-function showToast(msg, type='') {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.className = `toast show${type ? ' '+type : ''}`;
-  setTimeout(() => t.className = 'toast', 3000);
-}
-
-document.querySelectorAll('.modal-overlay').forEach(el => {
-  el.addEventListener('click', e => { if (e.target === el) el.classList.remove('open'); });
-});
-
-setInterval(() => { if (loggedIn) renderCards(); }, 60000);
+  setInterval(function(){ if (loggedIn) renderCards(); }, 60000);
 </script>
 </body>
 </html>
